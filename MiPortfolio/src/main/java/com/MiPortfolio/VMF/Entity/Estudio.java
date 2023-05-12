@@ -17,7 +17,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 public class Estudio {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     private Long id;
     @NotNull

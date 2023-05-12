@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
 public class Persona {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     private Long id;
     @NotNull
@@ -36,6 +37,7 @@ public class Persona {
     
     @OneToMany(fetch = FetchType.EAGER,mappedBy="persona")
     List<Skills> SkillsList;
+
     
     
 
