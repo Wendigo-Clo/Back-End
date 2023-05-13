@@ -17,15 +17,17 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+//@RequestMapping ("/api")
 public class AuthApi {
     @Autowired
     AuthenticationManager  authManager;
     @Autowired
     JwtTokenUtil jwtTokenUtil;
-    @PostMapping("/api/login")
+    @PostMapping("/login")
     public ResponseEntity <?> login (@RequestBody @Valid AuthRequest request){
         try{
             Authentication authentication=authManager.authenticate(

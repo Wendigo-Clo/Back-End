@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping ("/exp")
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"http://localhost:8080"})
 public class ExperienciaController {
     //Creo para urilizar sus metodos
 
@@ -59,7 +59,7 @@ public class ExperienciaController {
 
     
     @PostMapping("/crear")
-    public ResponseEntity<?> create(@RequestBody ExperienciaDto experienciaDto){      
+    public ResponseEntity<Experiencia> create(@RequestBody ExperienciaDto experienciaDto){      
         if(StringUtils.isBlank(experienciaDto.getTituloExp()))
             return new ResponseEntity(new Mensaje("El titulo es obligatorio"), HttpStatus.BAD_REQUEST);
         if(experienciaService.existsByTituloExp(experienciaDto.getTituloExp()))

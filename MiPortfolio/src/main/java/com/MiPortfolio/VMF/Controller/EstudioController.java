@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping ("/estudio")
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"http://localhost:8080"})
 public class EstudioController {
            EstudioService estudioService;
     
@@ -55,7 +55,7 @@ public class EstudioController {
 
     
     @PostMapping("/crear")
-    public ResponseEntity<?> create(@RequestBody EstudioDto estudioDto){      
+    public ResponseEntity<Estudio> create(@RequestBody EstudioDto estudioDto){      
         if(StringUtils.isBlank(estudioDto.getTituloEstudio()))
             return new ResponseEntity(new Mensaje("El titulo es obligatorio"), HttpStatus.BAD_REQUEST);
         /*if(estudioService.existsBytituloEstudio(estudioDto.getTituloEstudio()))
@@ -64,7 +64,7 @@ public class EstudioController {
         Estudio estudio = new Estudio( estudioDto.getTituloEstudio(), estudioDto.getDescripcionEstudio(),estudioDto.getFechaEstudio());
         estudioService.save(estudio);
         
-        return new ResponseEntity(new Mensaje("Estudio agregado"), HttpStatus.OK);
+        return new ResponseEntity(new Mensaje("Estudio agregado"), HttpStatus.CREATED);
     }
     
     

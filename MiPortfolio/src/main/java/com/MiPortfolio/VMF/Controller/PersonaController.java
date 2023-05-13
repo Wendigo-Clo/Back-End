@@ -4,7 +4,9 @@
  */
 package com.MiPortfolio.VMF.Controller;
 
+import com.MiPortfolio.VMF.Dto.ExperienciaDto;
 import com.MiPortfolio.VMF.Dto.PersonaDto;
+import com.MiPortfolio.VMF.Entity.Experiencia;
 import com.MiPortfolio.VMF.Entity.Persona;
 import com.MiPortfolio.VMF.Security.Controller.Mensaje;
 import com.MiPortfolio.VMF.Service.PersonaService;
@@ -15,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping ("/persona")
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"http://localhost:8080"})
 public class PersonaController {
     PersonaService personaService;
     
@@ -43,7 +46,15 @@ public class PersonaController {
         return new ResponseEntity(persona, HttpStatus.OK);
     }
     
-    
+     @PostMapping("/crear")
+    public ResponseEntity<?> create(@RequestBody PersonaDto personaDto){      
+        if(StringUtils.isBlank(personaDto.getNombre()))
+            return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
+        Persona persona = new Persona( personaDto.getNombre(), personaDto.getDescripcion(),personaDto.getFotoPerfil());
+        personaService.save(persona);
+        
+        return new ResponseEntity(new Mensaje("Persona agregada"), HttpStatus.OK);
+    }
     
     @PutMapping("/editar/{id}")
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody PersonaDto personaDto){

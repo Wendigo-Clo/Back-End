@@ -28,7 +28,7 @@ public class Skills {
                 //RelacionTabla 
     @ManyToOne
     //creacion de columna con llave foranea
-    @JoinColumn(name = "personaid")
+    @JoinColumn(name = "persona")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Persona persona;
     

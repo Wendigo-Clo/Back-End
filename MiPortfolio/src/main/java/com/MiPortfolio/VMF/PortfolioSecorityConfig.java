@@ -36,6 +36,7 @@ public class PortfolioSecorityConfig{
     }
     
     
+    
     //@Bean
     protected void configure (AuthenticationManagerBuilder auth) throws Exception{
         auth.userDetailsService(username-> userRepository.findByEmail(username)
@@ -56,17 +57,19 @@ public class PortfolioSecorityConfig{
         return authenticationConfiguration.getAuthenticationManager();
     }
     
+    
     //@Bean
     protected void configure(HttpSecurity http)throws Exception {
-        http.cors().and().csrf().disable()
+        http.csrf().disable()
                 .authorizeRequests()
-                .requestMatchers("/api/**")
+                .requestMatchers("/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .httpBasic();
                 
-        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
 }
